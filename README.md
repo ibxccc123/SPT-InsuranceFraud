@@ -1,32 +1,66 @@
-# Insurance Fraud
+# Welcome to the SPT Modding Project
 
-All insured gear that you drop in the middle of a raid will return back to you 100% of the time regardless of trader insurance rates.
+This project is designed to streamline the initial setup process for building and creating mods in the SPT environment. Follow this guide to set up your environment efficiently.
 
-## **Overview**
+## **Table of Contents**
+- [NodeJS Setup](#nodejs-setup)
+- [IDE Setup](#ide-setup)
+- [Workspace Configuration](#workspace-configuration)
+- [Environment Setup](#environment-setup)
+- [Essential Concepts](#essential-concepts)
+- [Coding Guidelines](#coding-guidelines)
+- [Distribution Guidelines](#distribution-guidelines)
 
-This mod *somewhat* simulates insurance fraud in live EFT by ensuring that all dropped and insured gear will return back to you with 100% return rates (imagine you hid it in a bush or something).
+## **NodeJS Setup**
 
-By default, SPT insurance works through percentage rates that are set to 75% and 85% if you insure through Prapor or Therapist respectively.  This rate will still apply for all insured gear that is equipped if you die in a raid, but any other insured gear that was dropped or moved to a container outside the inventory will be affected by this mod.  
+Before you begin, ensure to install NodeJS version `v20.11.1`, which has been tested thoroughly with our mod templates and build scripts. Download it from the [official NodeJS website](https://nodejs.org/).
 
-## **Background**
+After installation, it's advised to reboot your system.
 
-I was interested in making a mod like this so that I can feel better about dropping my guns in raid and found a lot of good direction on what and where to edit from looking through the source code of Insurance Plus by Mattdokn.  Thanks a lot!
+## **IDE Setup**
 
-## **Install**
+For this project, you can work with either [VSCodium](https://vscodium.com/) or [VSCode](https://code.visualstudio.com/). However, we strongly recommend using VSCode, as all development and testing have been carried out using this IDE, ensuring a smoother experience and compatibility with the project setups. Either way, we have a prepared a workspace file to assist you in setting up your environment.
 
-Extract directly into the SPT folder.  Mod folder can be located in user/mods/.
+## **Workspace Configuration**
 
-## **Specifics**
+With NodeJS and your chosen IDE ready, initiate the `mod.code-workspace` file using your IDE:
 
-The mod overrides functions in /spt/services/InsuranceService.ts and /spt/src/controllers/InsuranceController.ts.  The mod extends the Item class with an additional property (dropped: boolean) and uses it as a flag for gear that's missing in post-raid gear, creating some conditionals that will move the gear through the deletion helper functions without getting deleted.  After the insurance package is handled, the dropped property is cleaned up on all items.
+> File -> Open Workspace from File...
 
-## **Issues**
+Upon project loading, consider installing recommended plugins like the ESLint plugin.
 
-Insured armor will come back with similar durability as to what it had when you entered the raid.
+## **Environment Setup**
 
-Please let me know if you encounter any issues, testing insurance is very time-consuming.
+An automated task is available to configure your environment for Typescript utilization:
 
+> Terminal -> Run Task... -> Show All Tasks... -> npm: install
 
-## **Other Mods**
+Note: Preserve the `node_modules` folder as it contains necessary dependencies for Typescript and other functionalities.
 
-I recommend using [Server Value Modifier [SVM]]((https://hub.sp-tarkov.com/files/file/379-server-value-modifier-svm)) for modifying your base insurance values such trader insurance return rates and insurance return times.  Any mods that do not modify the above functions in InsuranceService.ts and InsuranceController.ts should be compatible, but let me know if any issues are being experienced.
+## **Essential Concepts**
+
+Prioritize understanding Dependency Injection and Inversion of Control, the architectural principles SPT adopts. Comprehensive guidelines will be available on the hub upon release.
+
+Some resources to get you started:
+ - [A quick intro to Dependency Injection](https://www.freecodecamp.org/news/a-quick-intro-to-dependency-injection-what-it-is-and-when-to-use-it-7578c84fa88f/)
+ - [Understanding Inversion of Control (IoC) Principle](https://medium.com/@amitkma/understanding-inversion-of-control-ioc-principle-163b1dc97454)
+
+## **Coding Guidelines**
+
+Focus your mod development around the `mod.ts` file. In the `package.json` file, only alter these properties: `"name"`, `"version"`, `"sptVersion"`, `"loadBefore"`, `"loadAfter"`, `"incompatibilities"`, `"isBundleMod"`, `"author"`, and `"license"`.
+
+New to Typescript? Find comprehensive documentation on the [official website](https://www.typescriptlang.org/docs/).
+
+## **Distribution Guidelines**
+
+Automated tasks are set up to bundle all necessary files for your mod to function in SPT:
+
+> Terminal -> Run Task... -> Show All Tasks... -> npm: build
+
+The ZIP output, located in the `dist` directory, contains all required files. Ensure all files are included and modify the `.buildignore` file as needed. This ZIP file is your uploadable asset for the hub.
+
+## **Conclusion**
+
+With this setup, you're ready to begin modding with SPT. If you run into any trouble be sure to check out the [modding documentation on the hub](https://hub.sp-tarkov.com/doc/lexicon/66-modding/). If you really get stuck feel free to join us in the [#mods-development](https://discord.com/channels/875684761291599922/875803116409323562) official Discord channel.
+
+Build something awesome!
